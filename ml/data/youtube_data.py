@@ -1,8 +1,7 @@
 import pandas as pd
 from googleapiclient.discovery import build
-import pprint
 
-api_key = "AIzaSyDIfoF7D2cpoA9FOaZWKtGKsmwm5zMkcj4"
+api_key = "AIzaSyBi1GYFcxWZdDZLRhf5PS_P77ZVr505ZlQ"
 
 youtube = build(
     'youtube',
@@ -15,13 +14,17 @@ video_results = []
 
 def get_all_results():
     search_token = True
-    while search_token:
+    i = 0
+
+    while search_token and i < 5:
         search_response = youtube.search().list(
             type='video',
             q='coding',
             part='snippet',
             maxResults=50
         ).execute()
+
+        print("Response...")
 
         search_token = search_response.get('nextPageToken')
         video_results.extend(search_response['items'])
